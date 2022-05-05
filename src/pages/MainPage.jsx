@@ -8,9 +8,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUsers } from "./../redux/actions";
+import { deleteUsers, loadUsers } from "./../redux/actions";
 import { Button, ButtonGroup } from "@mui/material";
 import { display, margin } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 // const useStyles = makeStyles((theme) => {
 //   root: {
@@ -58,14 +59,39 @@ const MainPage = () => {
     createData("Cupcake", 305, 3.7, 67, 4.3),
     createData("Gingerbread", 356, 16.0, 49, 3.9),
   ];
+
+  //
   let dispatch = useDispatch();
   const { users } = useSelector((state) => state.data);
   useEffect(() => {
     dispatch(loadUsers());
   }, []);
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure wanted to delete the user?")) {
+      dispatch(deleteUsers(id));
+    }
+  };
+  let navigate = useNavigate();
+
   return (
     <div>
       <h3>Main Page</h3>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          onClick={() => navigate("/addUser")}
+          variant="contained"
+          color="primary"
+        >
+          Add user
+        </Button>
+      </div>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -98,8 +124,18 @@ const MainPage = () => {
                       primary
                       button group"
                     >
-                      <Button color="primary">Delete</Button>
-                      <Button color="primary">Edit</Button>
+                      <Button
+                        color="secondary"
+                        onClick={() => handleDelete(user.id)}
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        color="primary"
+                        onClick={() => navigate(`/editUser/${user.id}`)}
+                      >
+                        Edit
+                      </Button>
                     </ButtonGroup>
                   </StyledTableCell>
                 </StyledTableRow>

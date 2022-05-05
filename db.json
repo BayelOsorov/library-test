@@ -1,25 +1,25 @@
 {
   "user": [
     {
-      "name": "Adam",
-      "address": "London",
-      "email": "adam@gmail.com",
-      "contact": "2134567",
-      "id": 1
-    },
-    {
-      "name": "Nick",
+      "name": "Nick Furyasassatyguhijlk",
       "address": "USA",
       "email": "nick@gmail.com",
       "contact": "453234",
       "id": 2
     },
     {
-      "name": "Jhon",
-      "address": "Bishkek",
-      "email": "jhon@gmail.com",
-      "contact": "09876523",
+      "name": "nurlanabdullaev9820@gmail.com",
+      "email": "nurlanabdullaev9820@gmail.com",
+      "contact": "5677890353225",
+      "address": "Бишкек",
       "id": 3
+    },
+    {
+      "name": "nurlanabdullaev9820@gmail.com",
+      "email": "nurlanabdullaev9820@gmail.com",
+      "contact": "25364764",
+      "address": "Бишкек",
+      "id": 4
     }
   ]
 }
