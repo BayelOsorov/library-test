@@ -109,7 +109,7 @@ const MainPage = () => {
           variant="contained"
           onClick={() => navigate("/cart")}
         >
-          Cart Page
+          Cart page
         </Button>
         <p>Кол-во книг в корзине : {productsCountInCart}</p>
       </div>
