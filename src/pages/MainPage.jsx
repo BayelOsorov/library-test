@@ -12,7 +12,11 @@ import { deleteUsers, loadUsers } from "./../redux/actions";
 import { Button, ButtonGroup } from "@mui/material";
 import { display, margin } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import { addAndDeleteProductInCart } from "redux/cart-actions";
+import {
+  addAndDeleteProductInCart,
+  checkProductInCart,
+  getCart,
+} from "redux/cart-actions";
 
 // const useStyles = makeStyles((theme) => {
 //   root: {
@@ -63,9 +67,13 @@ const MainPage = () => {
 
   //
   let dispatch = useDispatch();
-  const { users } = useSelector((state) => state.data);
+  const { users, cart, productsCountInCart } = useSelector(
+    (state) => state.data
+  );
+  console.log(cart, productsCountInCart);
   useEffect(() => {
     dispatch(loadUsers());
+    dispatch(getCart());
   }, []);
   const handleDelete = (id) => {
     if (window.confirm("Are you sure wanted to delete the user?")) {
@@ -73,7 +81,12 @@ const MainPage = () => {
     }
   };
   let navigate = useNavigate();
-
+  const handleAddAndDeleteProductInCart = (product) => {
+    dispatch(addAndDeleteProductInCart(product));
+  };
+  const checkBookInCart = (id) => {
+    return checkProductInCart(id);
+  };
   return (
     <div>
       <div
@@ -91,6 +104,14 @@ const MainPage = () => {
         >
           Add book
         </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => navigate("/cart")}
+        >
+          Cart Page
+        </Button>
+        <p>Кол-во книг в корзине : {productsCountInCart}</p>
       </div>
 
       <TableContainer component={Paper}>
@@ -116,6 +137,7 @@ const MainPage = () => {
                     <img
                       style={{ width: "200px", height: "200px" }}
                       src={user.image}
+                      alt=""
                     />
                   </StyledTableCell>
                   <StyledTableCell align="center">
@@ -131,7 +153,7 @@ const MainPage = () => {
                   <StyledTableCell align="center">
                     <ButtonGroup
                       variant="container"
-                      aria-label="contained 
+                      aria-label="contained
                       primary
                       button group"
                     >
@@ -149,14 +171,23 @@ const MainPage = () => {
                       >
                         Edit
                       </Button>
-
-                      <Button
-                        style={{ background: "green" }}
-                        color="primary"
-                        onClick={() => addAndDeleteProductInCart(user)}
-                      >
-                        Add to cart
-                      </Button>
+                      {checkBookInCart(user.id) ? (
+                        <Button
+                          color="error"
+                          variant="contained"
+                          onClick={() => handleAddAndDeleteProductInCart(user)}
+                        >
+                          Delete from
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          color="success"
+                          onClick={() => handleAddAndDeleteProductInCart(user)}
+                        >
+                          Add to cart
+                        </Button>
+                      )}
                     </ButtonGroup>
                   </StyledTableCell>
                 </StyledTableRow>

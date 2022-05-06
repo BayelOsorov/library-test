@@ -7,20 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUsers } from "redux/actions";
 import { getCart } from "redux/cart-actions";
 // import { clientContext } from "../contexts/ClientContext";
 
 const CartPage = ({ products }) => {
   let dispatch = useDispatch();
-  const { users, cart, productsCountInCart } = useSelector(
-    (state) => state.data
-  );
-
-  console.log("cart", cart);
-  console.log("users", users);
+  const { cart, productsCountInCart } = useSelector((state) => state.data);
   useEffect(() => {
-    // dispatch(loadUsers());
+    dispatch(getCart());
     getCart();
   }, []);
   return (
@@ -28,7 +22,7 @@ const CartPage = ({ products }) => {
       <h2>Корзина</h2>
 
       {cart ? (
-        cart.user.length > 0 ? (
+        cart.books.length > 0 ? (
           <div>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -41,22 +35,22 @@ const CartPage = ({ products }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cart.user.map((item) => (
+                  {cart.books.map((item) => (
                     <TableRow
-                      key={item.user.id}
+                      key={item.book.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {item.user.name}
+                        {item.book.name}
                       </TableCell>
                       <TableCell align="right">
-                        <img width="50px" src={item.user.image} alt="" />
+                        <img width="50px" src={item.book.image} alt="" />
                       </TableCell>
 
                       <TableCell align="right">
                         <input
                           onChange={(e) =>
-                            productsCountInCart(e.target.value, item.user.id)
+                            productsCountInCart(e.target.value, item.book.id)
                           }
                           type="number"
                           value={item.count}

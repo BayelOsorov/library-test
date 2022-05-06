@@ -6,7 +6,7 @@ const initialState = {
   loading: true,
   cart: null,
   productsCountInCart: JSON.parse(localStorage.getItem("cart"))
-    ? JSON.parse(localStorage.getItem("cart")).products.length
+    ? JSON.parse(localStorage.getItem("cart")).books.length
     : 0,
 };
 
