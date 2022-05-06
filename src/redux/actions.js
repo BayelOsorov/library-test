@@ -1,4 +1,5 @@
 import axios from "axios";
+import { instance } from "redux/axiosConfig";
 import * as types from "./actionsType";
 
 const getUsers = (users) => ({
@@ -31,10 +32,10 @@ export const clearCountOfCart = () => {
 //
 export const loadUsers = () => {
   return function (dispatch) {
-    axios
-      .get(`${process.env.REACT_APP_API}`)
+    instance
+      .get("/users")
       .then((resp) => {
-        console.log("resp", resp);
+        console.log("resp", resp.data);
         dispatch(getUsers(resp.data));
       })
       .catch((e) => console.log(e));
