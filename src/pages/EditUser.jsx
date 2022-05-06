@@ -13,12 +13,13 @@ const EditUser = () => {
   const { user } = useSelector((state) => state.data);
   const [state, setState] = useState({
     name: "",
-    email: "",
+    image: "",
     contact: "",
     address: "",
+    category: "",
   });
   const [error, setError] = useState("");
-  const { name, email, contact, address } = state;
+  const { name, image, contact, address, category } = state;
   useEffect(() => {
     dispatch(getSingleUser(id));
   }, []);
@@ -35,7 +36,7 @@ const EditUser = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !address || !email || !contact) {
+    if (!name || !address || !image || !contact || !category) {
       setError("please input all input field");
     } else {
       dispatch(updateUser(state, id));
@@ -89,11 +90,11 @@ const EditUser = () => {
         <br />
         <TextField
           id="standard-basic"
-          label="email"
+          label="image"
           variant="standard"
-          value={email || ""}
-          type="email"
-          name="email"
+          value={image || ""}
+          type="image"
+          name="image"
           onChange={handleInputChange}
         />
         <br />
@@ -115,6 +116,15 @@ const EditUser = () => {
           value={address || ""}
           type="text"
           name="address"
+          onChange={handleInputChange}
+        />
+        <TextField
+          id="standard-basic"
+          label="category"
+          variant="standard"
+          value={category}
+          type="text"
+          name="category"
           onChange={handleInputChange}
         />
         <Button

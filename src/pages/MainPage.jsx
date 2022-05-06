@@ -52,13 +52,13 @@ const MainPage = () => {
     return { name, calories, fat, carbs, protein };
   }
 
-  const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-  ];
+  //   const rows = [
+  //     createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+  //     createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+  //     createData("Eclair", 262, 16.0, 24, 6.0),
+  //     createData("Cupcake", 305, 3.7, 67, 4.3),
+  //     createData("Gingerbread", 356, 16.0, 49, 3.9),
+  //   ];
 
   //
   let dispatch = useDispatch();
@@ -75,7 +75,6 @@ const MainPage = () => {
 
   return (
     <div>
-      <h3>Main Page</h3>
       <div
         style={{
           display: "flex",
@@ -84,11 +83,12 @@ const MainPage = () => {
         }}
       >
         <Button
+          style={{ margin: "50px" }}
           onClick={() => navigate("/addUser")}
           variant="contained"
           color="primary"
         >
-          Add user
+          Add book
         </Button>
       </div>
 
@@ -97,9 +97,10 @@ const MainPage = () => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="center">Email</StyledTableCell>
+              <StyledTableCell align="center">Image</StyledTableCell>
               <StyledTableCell align="center">Contact</StyledTableCell>
-              <StyledTableCell align="center">Address</StyledTableCell>
+              <StyledTableCell align="center">Author</StyledTableCell>
+              <StyledTableCell align="center">Category</StyledTableCell>
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -110,13 +111,22 @@ const MainPage = () => {
                   <StyledTableCell component="th" scope="row">
                     {user.name}
                   </StyledTableCell>
-                  <StyledTableCell align="center">{user.email}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    <img
+                      style={{ width: "200px", height: "200px" }}
+                      src={user.image}
+                    />
+                  </StyledTableCell>
                   <StyledTableCell align="center">
                     {user.contact}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     {user.address}
                   </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {user.category}
+                  </StyledTableCell>
+
                   <StyledTableCell align="center">
                     <ButtonGroup
                       variant="container"
@@ -125,12 +135,14 @@ const MainPage = () => {
                       button group"
                     >
                       <Button
+                        style={{ background: "red" }}
                         color="secondary"
                         onClick={() => handleDelete(user.id)}
                       >
                         Delete
                       </Button>
                       <Button
+                        style={{ background: "blue" }}
                         color="primary"
                         onClick={() => navigate(`/editUser/${user.id}`)}
                       >

@@ -11,19 +11,20 @@ const AddUser = () => {
   const dispatch = useDispatch();
   const [state, setState] = useState({
     name: "",
-    email: "",
+    image: "",
     contact: "",
     address: "",
+    category: "",
   });
   const [error, setError] = useState("");
-  const { name, email, contact, address } = state;
+  const { name, image, contact, address, category } = state;
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !address || !email || !contact) {
+    if (!name || !address || !image || !contact || !category) {
       setError("please input all input field");
     } else {
       dispatch(addUsers(state));
@@ -77,11 +78,11 @@ const AddUser = () => {
         <br />
         <TextField
           id="standard-basic"
-          label="email"
+          label="image"
           variant="standard"
-          value={email}
-          type="email"
-          name="email"
+          value={image}
+          type="text"
+          name="image"
           onChange={handleInputChange}
         />
         <br />
@@ -103,6 +104,15 @@ const AddUser = () => {
           value={address}
           type="text"
           name="address"
+          onChange={handleInputChange}
+        />
+        <TextField
+          id="standard-basic"
+          label="category"
+          variant="standard"
+          value={category}
+          type="text"
+          name="category"
           onChange={handleInputChange}
         />
         <Button
