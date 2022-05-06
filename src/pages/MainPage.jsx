@@ -148,6 +148,13 @@ const MainPage = () => {
                       >
                         Edit
                       </Button>
+                      <Button
+                        style={{ background: "green" }}
+                        color="primary"
+                        onClick={() => navigate(`/editUser/${user.id}`)}
+                      >
+                        Add to cart
+                      </Button>
                     </ButtonGroup>
                   </StyledTableCell>
                 </StyledTableRow>

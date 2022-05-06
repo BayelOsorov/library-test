@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddUser from "pages/AddUser";
 import EditUser from "pages/EditUser";
 import MyNavbar from "components/MyNavbar";
+import CartPage from "pages/CartPage";
 
 const MyRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const MyRoutes = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/addUser" element={<AddUser />} />
         <Route path="/editUser/:id" element={<EditUser />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </BrowserRouter>
   );
