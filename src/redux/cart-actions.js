@@ -4,10 +4,8 @@ import jwt_decode from "jwt-decode";
 import { CalcSubPrice, calcTotalPrice } from "../utils/calcPrice";
 import {
   ADD_AND_DELETE_CART,
-  ADD_AND_DELETE_FAVORITES,
   CLEAR_COUNT_OF_CART,
   GET_CART,
-  GET_FAVORITES,
   USER_GET_COUNT,
   USER_GET_DETAIL,
   USER_GET_PRODUCT,
@@ -23,11 +21,11 @@ export const getProducts = (page = "1") => {
       if (filter) filter += `&page=${page}`;
       else filter += `?page=${page}`;
 
-      const { data } = await $axios(`products/${filter}`);
+      const { data } = await $axios(`user/${filter}`);
       if (filter1) filter1 += "&limit=10000";
       else filter1 += "?limit=10000";
 
-      const response = await $axios(`products/${filter1}`);
+      const response = await $axios(`user/${filter1}`);
       dispatch({
         type: USER_GET_COUNT,
         payload: response.data.rows.length,
@@ -44,7 +42,7 @@ export const getProducts = (page = "1") => {
 };
 export const getDetail = (id) => {
   return async (dispatch) => {
-    const { data } = await $axios("/products/" + id);
+    const { data } = await $axios("/user/" + id);
     dispatch({
       type: USER_GET_DETAIL,
       payload: data,
@@ -57,7 +55,7 @@ export const addAndDeleteProductInCart = (product1) => {
   let cart = JSON.parse(localStorage.getItem("cart"));
   if (!cart) {
     cart = {
-      products: [],
+      user: [],
       totalPrice: 0,
     };
   }
@@ -67,13 +65,13 @@ export const addAndDeleteProductInCart = (product1) => {
     subPrice: 0,
   };
   product.subPrice = CalcSubPrice(product);
-  let checkArr = cart.products.filter((item) => {
+  let checkArr = cart.user.filter((item) => {
     return item.product1.id === product1.id;
   });
   if (checkArr.length === 0) {
-    cart.products.push(product);
+    cart.user.push(product);
   } else {
-    cart.products = cart.products.filter((item) => {
+    cart.user = cart.user.filter((item) => {
       return item.product1.id !== product1.id;
     });
   }
@@ -81,18 +79,18 @@ export const addAndDeleteProductInCart = (product1) => {
   localStorage.setItem("cart", JSON.stringify(cart));
   return {
     type: ADD_AND_DELETE_CART,
-    payload: cart.products.length,
+    payload: cart.user.length,
   };
 };
 export const checkProductInCart = (id) => {
   let cart = JSON.parse(localStorage.getItem("cart"));
   if (!cart) {
     cart = {
-      products: [],
+      user: [],
       totalPrice: 0,
     };
   }
-  let checkArr = cart.products.filter((item) => {
+  let checkArr = cart.user.filter((item) => {
     return item.product1.id === id;
   });
   if (checkArr.length === 0) {
@@ -115,11 +113,11 @@ export const changeCountProduct = (count, id) => {
   let cart = JSON.parse(localStorage.getItem("cart"));
   if (!cart) {
     cart = {
-      products: [],
+      user: [],
       totalPrice: 0,
     };
   }
-  cart.products = cart.products.map((item) => {
+  cart.user = cart.user.map((item) => {
     if (item.product1.id === id) {
       item.count = count;
       item.subPrice = CalcSubPrice(item);

@@ -4,6 +4,8 @@ export const ADD_USER = "ADD_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const GET_SINGLE_USER = "GET_SINGLE_USER";
 export const CLEAR_COUNT_OF_CART = "CLEAR_COUNT_OF_CART";
+export const GET_CART = "GET_CART";
+export const ADD_AND_DELETE_CART = "ADD_AND_DELETE_CART";
 
 // export const CLEAR_ITEMS = "CLEAR_ITEMS";
 // export const REMOVE = "REMOVE";
