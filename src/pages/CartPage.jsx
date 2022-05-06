@@ -1,238 +1,114 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
-// snack
-import Stack from "@mui/material/Stack";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import { Button, Rating } from "@mui/material";
+import React, { useContext, useEffect } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { Button } from "@mui/material";
+
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addAndDeleteProductInCart,
-  addAndDeleteProductInFavorites,
-  checkFavoriteInFavorites,
-  checkProductInCart,
-  getDetail,
-} from "../redux/cart-actions";
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
+// import { clientContext } from "../context/ClientContext";
 const CartPage = () => {
-  const params = useParams();
-  let user = JSON.parse(localStorage.getItem("users"));
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getDetail(params.id));
-  }, []);
-  const detailProduct = useSelector(
-    (state) => state.userProducts.productDetails
-  );
-  // snackbar
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-  //  error snack
-  const [open1, setOpen1] = React.useState(false);
-
-  const handleClick1 = () => {
-    setOpen1(true);
-  };
-
-  const handleClose1 = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen1(false);
-  };
-  const [open3, setOpen3] = React.useState(false);
-
-  const handleClick3 = () => {
-    setOpen3(true);
-  };
-
-  const handleClose3 = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen3(false);
-  };
-  const [open4, setOpen4] = React.useState(false);
-
-  const handleClick4 = () => {
-    setOpen4(true);
-  };
-
-  const handleClose4 = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen4(false);
-  };
-
-  // !Rating
-
-  // let sum = 0
-  // if (ratings) {
-  //     ratings.map((item) => {
-  //         sum += +item.rate
-  //     })
-  //     sum = sum / ratings.length
-  // }
-
-  // !
-
-  // let countOfLike = 0
-  // if (likes) {
-  //     likes.map((item) => {
-  //         countOfLike += item.likeCount
-  //     })
-  // }
-  // const { addBrowsing } = useContext(browsingContext)
+  // const { getCart, cart, changeCountProduct, addAndDeleteProductInCart } =
+  //   useContext(clientContext);
   // useEffect(() => {
-  //     addBrowsing(params.id, user.username)
-
-  // }, [])
-
+  //   getCart();
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
-      <Stack spacing={2} sx={{ width: "100%" }}>
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Добавлено в корзину
-          </Alert>
-        </Snackbar>
-      </Stack>
+      <div className="cart-page">
+        <Link to="/products">
+          <Button>К продуктам</Button>
+        </Link>
+        <h2>Cart</h2>
+        {cart ? (
+          cart.products.length > 0 ? (
+            <div>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Название</TableCell>
+                      <TableCell align="right">Фото</TableCell>
+                      <TableCell align="right">Кол-во</TableCell>
+                      <TableCell align="right">Сумма</TableCell>
+                      <TableCell align="right">#</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cart.products.map((item) => (
+                      <TableRow
+                        key={item.product1.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {item.product1.name}
+                        </TableCell>
+                        <TableCell align="right">
+                          <img width="50px" src={item.product1.image} alt="" />
+                        </TableCell>
 
-      <Stack spacing={2} sx={{ width: "100%" }}>
-        <Snackbar open={open1} autoHideDuration={2000} onClose={handleClose1}>
-          <Alert severity="error">Удалено из корзины</Alert>
-        </Snackbar>
-      </Stack>
-      <Stack spacing={2} sx={{ width: "100%" }}>
-        <Snackbar open={open3} autoHideDuration={2000} onClose={handleClose3}>
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Добавлено в избранное
-          </Alert>
-        </Snackbar>
-      </Stack>
+                        <TableCell align="right">
+                          <input
+                            onChange={(e) =>
+                              changeCountProduct(
+                                e.target.value,
+                                item.product1.id
+                              )
+                            }
+                            type="number"
+                            value={item.count}
+                          />
+                        </TableCell>
 
-      <Stack spacing={2} sx={{ width: "100%" }}>
-        <Snackbar open={open4} autoHideDuration={2000} onClose={handleClose4}>
-          <Alert severity="error">Удалено из избранных</Alert>
-        </Snackbar>
-      </Stack>
-      <div className="detail-page">
-        {detailProduct ? (
-          <div className="details" key={detailProduct.id}>
-            <div className="big-img">
-              <img src={detailProduct.image} alt="" />
+                        <TableCell align="right">
+                          {item.subPrice} com{" "}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Button
+                            variant="outlined"
+                            color="error"
+                            onClick={() => {
+                              addAndDeleteProductInCart(item.product1);
+                              getCart();
+                            }}
+                          >
+                            Удалить из корзины
+                          </Button>{" "}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow>
+                      <TableCell colSpan={3} align="right">
+                        Общая сумма:
+                      </TableCell>
+                      <TableCell colSpan={1} align="right">
+                        {cart.totalPrice} com
+                      </TableCell>
+                      <TableCell colSpan={1} align="right">
+                        <Link to="/order">
+                          <Button variant="contained" color="success">
+                            Купить сейчас
+                          </Button>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
-
-            <div className="box">
-              <div className="row">
-                <h2>{detailProduct.name}</h2>
-                <span>{detailProduct.price}c</span>
-              </div>
-              {/* <Rating
-                                    precision={0.5} value={sum}
-                                    name="simple-controlled"
-                                    readOnly
-                                /> */}
-              <p>Бренд: {detailProduct.brand}</p>
-
-              <p>{detailProduct.description}</p>
+          ) : (
+            <>
+              <h2>Корзина пуста</h2>
               <Link to="/products">
-                <Button style={{ display: "block" }}>to products</Button>
+                <Button variant="outlined">К продуктам</Button>
               </Link>
-              <Link to="/order">
-                <Button style={{ display: "block" }}>buy now</Button>
-              </Link>
-              {/* {
-                                    checkProductInCart(detailProduct.id) ? (
-                                        <Button
-                                            onClick={() => {
-                                                addAndDeleteProductInCart(detailProduct)
-                                                handleClick1()
-                                            }}
-                                            className='shop-btn' color='error' variant='outlined' size="large">
-                                            Удалить из корзины
-                                        </Button>
-
-                                    ) : (
-                                        <Button
-                                            onClick={() => {
-                                                addAndDeleteProductInCart(detailProduct)
-                                                handleClick()
-                                            }}
-                                            className='shop-btn' color='success' variant='outlined' size="large">
-                                            Добавить в корзину
-                                        </Button>
-                                    )
-                                }
-                                {
-                                    checkFavoriteInFavorites(detailProduct.id) ? (
-                                        <Button
-                                            onClick={() => {
-                                                addAndDeleteProductInFavorites(detailProduct)
-                                                handleClick4()
-
-                                            }}
-                                            className='shop-btn' color='error' variant='outlined' size="large">
-                                            Удалить из избранных
-                                        </Button>
-
-                                    ) : (
-                                        <Button
-                                            onClick={() => {
-                                                addAndDeleteProductInFavorites(detailProduct)
-                                                handleClick3()
-
-                                            }}
-                                            className='shop-btn' color='success' variant='outlined' size="large">
-                                            Добавить в избранное
-                                        </Button>
-                                    )
-                                } */}
-              <div className="my-rate">
-                {/* {
-                                        !user || user.username === 'guest' ? (
-                                            <Link to='/register' >
-                                                <h5 className='login-to' >Войдите чтобы оставить лайк и рейтинг </h5>
-                                            </Link>
-                                        ) : (
-                                            <>
-                                                <MyRating />
-                                                {countOfLike !== 0 ? countOfLike : null}
-                                                <MyLikes />
-                                            </>
-
-                                        )
-                                    } */}
-              </div>
-            </div>
-          </div>
+            </>
+          )
         ) : (
           <h2>Loading...</h2>
         )}
