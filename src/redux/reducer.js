@@ -4,11 +4,6 @@ const initialState = {
   users: [],
   user: {},
   loading: true,
-  cart: null,
-
-  productsCountInCart: JSON.parse(localStorage.getItem("cart"))
-    ? JSON.parse(localStorage.getItem("cart")).products.length
-    : 0,
 };
 
 const usersReducers = (state = initialState, action) => {
@@ -24,13 +19,6 @@ const usersReducers = (state = initialState, action) => {
       };
     case types.GET_SINGLE_USER:
       return { ...state, user: action.payload, loading: false };
-
-    case types.ADD_AND_DELETE_CART:
-      return { ...state, productsCountInCart: action.payload };
-    case types.GET_CART:
-      return { ...state, cart: action.payload };
-    case types.CLEAR_COUNT_OF_CART:
-      return { ...state, productsCountInCart: action.payload };
 
     default:
       return state;

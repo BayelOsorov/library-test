@@ -20,6 +20,14 @@ const getUser = (user) => ({
   payload: user,
 });
 
+export const clearCountOfCart = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.CLEAR_COUNT_OF_CART,
+      payload: null,
+    });
+  };
+};
 //
 export const loadUsers = () => {
   return function (dispatch) {

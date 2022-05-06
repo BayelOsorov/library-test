@@ -151,7 +151,7 @@ const MainPage = () => {
                       <Button
                         style={{ background: "green" }}
                         color="primary"
-                        onClick={() => navigate(`/editUser/${user.id}`)}
+                        onClick={() => navigate(`/cart`)}
                       >
                         Add to cart
                       </Button>
