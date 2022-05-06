@@ -10,7 +10,6 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUsers, loadUsers } from "./../redux/actions";
 import { Button, ButtonGroup } from "@mui/material";
-import { display, margin } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import {
   addAndDeleteProductInCart,
