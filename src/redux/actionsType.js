@@ -6,6 +6,9 @@ export const GET_SINGLE_USER = "GET_SINGLE_USER";
 export const CLEAR_COUNT_OF_CART = "CLEAR_COUNT_OF_CART";
 export const GET_CART = "GET_CART";
 export const ADD_AND_DELETE_CART = "ADD_AND_DELETE_CART";
+export const USER_GET_COUNT = "USER_GET_COUNT";
+export const USER_GET_PRODUCT = "USER_GET_PRODUCT";
+export const USER_GET_DETAIL = "USER_GET_DETAIL";
 
 // export const CLEAR_ITEMS = "CLEAR_ITEMS";
 // export const REMOVE = "REMOVE";

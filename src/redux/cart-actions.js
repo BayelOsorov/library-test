@@ -1,6 +1,5 @@
 import axios from "axios";
 import $axios from "./../axiosConfig";
-import jwt_decode from "jwt-decode";
 import { CalcSubPrice, calcTotalPrice } from "../utils/calcPrice";
 import {
   ADD_AND_DELETE_CART,

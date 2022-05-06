@@ -12,6 +12,7 @@ import { deleteUsers, loadUsers } from "./../redux/actions";
 import { Button, ButtonGroup } from "@mui/material";
 import { display, margin } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import { addAndDeleteProductInCart } from "redux/cart-actions";
 
 // const useStyles = makeStyles((theme) => {
 //   root: {
@@ -148,10 +149,11 @@ const MainPage = () => {
                       >
                         Edit
                       </Button>
+
                       <Button
                         style={{ background: "green" }}
                         color="primary"
-                        onClick={() => navigate(`/cart`)}
+                        onClick={() => addAndDeleteProductInCart(user)}
                       >
                         Add to cart
                       </Button>

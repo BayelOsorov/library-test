@@ -6,23 +6,29 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUsers } from "redux/actions";
+import { getCart } from "redux/cart-actions";
 // import { clientContext } from "../contexts/ClientContext";
 
-const CartPage = () => {
+const CartPage = ({ products }) => {
   let dispatch = useDispatch();
   const { users, cart, productsCountInCart } = useSelector(
     (state) => state.data
   );
 
-  // const { getCart, cart, changeCountPhone } = useContext(clientContext);
+  console.log("cart", cart);
+  console.log("users", users);
   useEffect(() => {
-    dispatch(loadUsers());
+    // dispatch(loadUsers());
+    getCart();
   }, []);
   return (
     <div>
       <h2>Корзина</h2>
+
       {cart ? (
-        cart.phones.length > 0 ? (
+        cart.user.length > 0 ? (
           <div>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -35,22 +41,22 @@ const CartPage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cart.phones.map((item) => (
+                  {cart.user.map((item) => (
                     <TableRow
-                      key={item.phone.id}
+                      key={item.user.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {item.phone.name}
+                        {item.user.name}
                       </TableCell>
                       <TableCell align="right">
-                        <img width="50px" src={item.phone.image} alt="" />
+                        <img width="50px" src={item.user.image} alt="" />
                       </TableCell>
 
                       <TableCell align="right">
                         <input
                           onChange={(e) =>
-                            changeCountPhone(e.target.value, item.phone.id)
+                            productsCountInCart(e.target.value, item.user.id)
                           }
                           type="number"
                           value={item.count}
